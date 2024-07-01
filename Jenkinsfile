@@ -1,16 +1,10 @@
 pipeline {
-    agent {
-        node {
-            label 'docker-agent-python'
-        }
-    }
-    triggers {
-        pollSCM '* * * * *'
-    }
+    agent any
+    
     stages {
         stage('git clone') {
             steps {
                 echo 'cloning repo'
-                git branch: 'master' url: 'https://github.com/keulyt/jenkins-101.git'
+                git branch:'master', changelog: false, poll: false, url: 'https://github.com/keulyt/jenkins-101.git'
             }
         }
