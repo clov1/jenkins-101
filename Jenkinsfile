@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Checking out code from Git...'
-                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/keulyt/jenkins-101.git'
+                git branch: 'master', changelog: false, poll: false, url: 'https://github.com/keulyt/jenkins-101.git'
             }
         }
         stage('Build') {
