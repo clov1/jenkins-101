@@ -1,10 +1,44 @@
 pipeline {
-    agent any
-    
+    agent {
+        node {
+            label 'docker-agent-python'
+        }
+    }
+    triggers {
+        pollSCM '* * * * *'
+    }
     stages {
-        stage('git clone') {
+        stage('Checkout') {
             steps {
-                echo 'cloning repo'
-                git branch:'master', url: 'https://github.com/keulyt/jenkins-101.git'
+                echo 'Checking out code from Git...'
             }
         }
+        stage('Build') {
+            steps {
+                echo "Building.."
+                sh '''
+                cd myapp
+                pip install -r requirements.txt
+                '''
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Testing.."
+                sh '''
+                cd myapp
+                python3 hello.py
+                python3 hello.py --name=Brad
+                '''
+            }
+        }
+        stage('Deliver') {
+            steps {
+                echo 'Deliver....'
+                sh '''
+                echo "doing delivery stuff.."
+                '''
+            }
+        }
+    }
+}
