@@ -1,4 +1,4 @@
-FROM FROM jenkins/jenkins:2.504.1-jdk11 FROM
+FROM FROM jenkins/jenkins:2.426.3-jdk11 FROM
 USER root
 RUN apt-get update && apt-get install -y lsb-release python3-pip
 RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
@@ -10,6 +10,6 @@ RUN echo "deb [arch=$(dpkg --print-architecture) \
 RUN apt-get update && apt-get install -y docker-ce-cli
 USER jenkins
 RUN jenkins-plugin-cli --plugins \
-  "git-client:6.4.0 blueocean:1.27.6 docker-workflow:1.30 credentials:1380.va435002fa924"
+  "blueocean docker-workflow git-client"
 
 #RUN jenkins-plugin-cli --plugins "git-client" "blueocean:1.25.3 docker-workflow:1.28"
